@@ -8,6 +8,10 @@ import java.util.List;
 @DiscriminatorValue("Librarian")
 public class Librarian extends AppUser {
 
+    @ManyToOne
+    @JoinColumn( name = "libraryBranchId")
+    LibraryBranch libraryBranch;
+
     @OneToMany (mappedBy = "librarian", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     List<Book> books;
 

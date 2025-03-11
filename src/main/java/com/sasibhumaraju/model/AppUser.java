@@ -19,6 +19,15 @@ public abstract class AppUser {
     @Column(nullable = false)
     String name = "";
 
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getUserId() {
         return userId;
     }
@@ -33,6 +42,15 @@ public abstract class AppUser {
 
     public void setEmail(@NotNull String email) {
         this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "AppUser{" +
+                "userId='" + userId + '\'' +
+                ", email='" + email + '\'' +
+                ", name='" + name + '\'' +
+                '}';
     }
 }
 

@@ -24,6 +24,20 @@ public class LibraryBranch {
     @OneToMany (mappedBy = "libraryBranch", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     List<Book> books;
 
+    @OneToMany( mappedBy = "libraryBranch", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    List<Librarian> librarians;
+
+    @OneToMany( mappedBy = "libraryBranch", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    List<BorrowedBook> borrowedBooks;
+
+    public List<Librarian> getLibrarians() {
+        return librarians;
+    }
+
+    public void setLibrarians(List<Librarian> librarians) {
+        this.librarians = librarians;
+    }
+
     public String getLibraryBranchId() {
         return libraryBranchId;
     }

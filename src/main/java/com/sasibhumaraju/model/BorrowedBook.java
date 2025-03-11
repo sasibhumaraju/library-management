@@ -10,7 +10,7 @@ public class BorrowedBook {
 
     @Id
     @GeneratedValue (strategy = GenerationType.UUID)
-    String brBookId;
+    String borrowedBookId;
 
     @Column(nullable = false)
     LocalDate time;
@@ -23,6 +23,10 @@ public class BorrowedBook {
     @JoinColumn ( name = "bookId")
     Book book;
 
+    @ManyToOne
+    @JoinColumn(name = "libraryBranchId")
+    LibraryBranch libraryBranch;
+
     public LocalDate getTime() {
         return time;
     }
@@ -32,12 +36,12 @@ public class BorrowedBook {
     }
 
 
-    public String getBrBookId() {
-        return brBookId;
+    public String getBorrowedBookId() {
+        return borrowedBookId;
     }
 
-    public void setBrBookId(String brBookId) {
-        this.brBookId = brBookId;
+    public void setBorrowedBookId(String borrowedBookId) {
+        this.borrowedBookId = borrowedBookId;
     }
 
     public Member getMember() {

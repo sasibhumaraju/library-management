@@ -21,4 +21,16 @@ public class Member extends AppUser {
     public void setBorrowedBooks(List<BorrowedBook> borrowedBooks) {
         this.borrowedBooks = borrowedBooks;
     }
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "borrowedCount=" + borrowedCount +
+                ", borrowedBooks=" + borrowedBooks +
+                "email=" + email +
+                "name=" + name +
+                '}';
+    }
+
+
 }
