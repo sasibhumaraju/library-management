@@ -1,15 +1,15 @@
 package com.sasibhumaraju.service;
 
-
 import com.sasibhumaraju.Main;
 import com.sasibhumaraju.config.DataBaseConfig;
 import com.sasibhumaraju.model.Admin;
+import com.sasibhumaraju.model.AppUser;
 import com.sasibhumaraju.model.Librarian;
 import com.sasibhumaraju.model.Member;
+import com.sasibhumaraju.util.Util;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-
 
 
 public class LoginService {
@@ -26,17 +26,18 @@ public class LoginService {
         Session session = DataBaseConfig.getSession();
 
         try {
-            Query q = session.createQuery("FROM AppUser a WHERE a.email = :email AND TYPE(a) = :role");
+            Query<AppUser> q = session.createQuery("FROM AppUser a WHERE a.email = :email AND TYPE(a) = :role", AppUser.class);
             q.setParameter("email", email);
             q.setParameter("role", Member.class); // Correct usage
 
-            Member m = (Member) q.getSingleResult();
-            Main.member = m;
-            System.out.println(m);
-            System.out.println("Hey! " + m.getName() + "welcome..");
+            Member m =  (Member) q.getSingleResult();
+            Util.loginAppUser(m,3);
+            System.out.println("Hey! " + m.getName() + " welcome..");
             session.close();
+
         } catch (HibernateException e) {
-            System.out.println("Some error happened! try again...");
+            System.out.println(e);
+            System.out.println("Member not found / Some error happened! try again...");
         }
     }
 
@@ -44,14 +45,15 @@ public class LoginService {
         Session session = DataBaseConfig.getSession();
 
         try {
-            Query q = session.createQuery("FROM AppUser a WHERE :email = a.email AND TYPE(a) = :role");
+            Query<AppUser> q = session.createQuery("FROM AppUser a WHERE :email = a.email AND TYPE(a) = :role", AppUser.class);
             q.setParameter("email",email);
             q.setParameter("role", Admin.class);
             Admin m = (Admin) q.getSingleResult();
-            Main.admin = m;
+            Util.loginAppUser(m,1);
             System.out.println("Hey! " + m.getName() + " welcome..");
         } catch (Exception e) {
-            System.out.println("Some error happened! try again...");
+            System.out.println(e);
+            System.out.println("Admin not found / Some error happened! try again...");
         }
         session.close();
     }
@@ -60,14 +62,15 @@ public class LoginService {
         Session session = DataBaseConfig.getSession();
 
         try {
-            Query q = session.createQuery("FROM AppUser a WHERE :email = a.email AND TYPE(a) = :role");
+            Query<AppUser> q = session.createQuery("FROM AppUser a WHERE :email = a.email AND TYPE(a) = :role",AppUser.class);
             q.setParameter("email",email);
             q.setParameter("role", Librarian.class);
             Librarian m = (Librarian) q.getSingleResult();
-            Main.librarian = m;
+            Util.loginAppUser(m,2);
             System.out.println("Hey! " + m.getName() + " welcome..");
         } catch (Exception e) {
-            System.out.println("Some error happened! try again...");
+            System.out.println(e);
+            System.out.println("Librarian not found / Some error happened! try again...");
         }
         session.close();
     }

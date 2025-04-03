@@ -13,7 +13,10 @@ public class BorrowedBook {
     String borrowedBookId;
 
     @Column(nullable = false)
-    LocalDate time;
+    boolean isCleared = false;
+
+    @Column(nullable = false)
+    LocalDate dueDate;
 
     @ManyToOne
     @JoinColumn ( name = "memberId")
@@ -27,14 +30,13 @@ public class BorrowedBook {
     @JoinColumn(name = "libraryBranchId")
     LibraryBranch libraryBranch;
 
-    public LocalDate getTime() {
-        return time;
+    public LocalDate getDueDate() {
+        return dueDate;
     }
 
-    public void setTime(LocalDate time) {
-        this.time = time;
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
     }
-
 
     public String getBorrowedBookId() {
         return borrowedBookId;
@@ -58,5 +60,21 @@ public class BorrowedBook {
 
     public void setBook(Book book) {
         this.book = book;
+    }
+
+    public boolean isCleared() {
+        return isCleared;
+    }
+
+    public void setCleared(boolean cleared) {
+        isCleared = cleared;
+    }
+
+    public LibraryBranch getLibraryBranch() {
+        return libraryBranch;
+    }
+
+    public void setLibraryBranch(LibraryBranch libraryBranch) {
+        this.libraryBranch = libraryBranch;
     }
 }

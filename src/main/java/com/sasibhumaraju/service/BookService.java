@@ -11,9 +11,9 @@ import java.util.List;
 
 public class BookService {
     private BookService () {}
-    private BookService bookService = null;
+    private static BookService bookService = null;
 
-    public BookService getBookService() {
+    public static BookService getBookService() {
         bookService = bookService == null? new BookService() : bookService;
         return bookService;
     }
@@ -37,7 +37,7 @@ public class BookService {
         Session session = DataBaseConfig.getSession();
 
         try {
-            Query<Book> q = session.createQuery("FROM Book WHERE libraryBranchId = :lbi");
+            Query<Book> q = session.createQuery("FROM Book WHERE libraryBranchId = :lbi",Book.class);
             q.setParameter("lid",libraryBranch);
             List<Book> l = q.getResultList();
             session.close();
@@ -47,6 +47,23 @@ public class BookService {
             session.close();
             return null;
         }
+    }
+
+    public Book getBookByName(String name) {
+
+        Session session = DataBaseConfig.getSession();
+        try {
+            Query<Book> q = session.createQuery("FROM Book where bookName = :name",Book.class);
+            q.setParameter("name", name);
+            Book book = q.getSingleResult();
+            session.close();
+            return book;
+        } catch (HibernateException e) {
+            System.out.println("Failed to fetch book data..");
+            session.close();
+            return null;
+        }
+
     }
 
     public Book addNewBook(Book book) {

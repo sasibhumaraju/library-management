@@ -22,4 +22,12 @@ public class Librarian extends AppUser {
     public void setBooks(List<Book> books) {
         this.books = books;
     }
+
+    public LibraryBranch getLibraryBranch() {
+        return libraryBranch;
+    }
+
+    public void setLibraryBranch(LibraryBranch libraryBranch) {
+        this.libraryBranch = libraryBranch;
+    }
 }
