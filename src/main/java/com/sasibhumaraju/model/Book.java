@@ -1,10 +1,12 @@
 package com.sasibhumaraju.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import java.util.List;
 
 @Entity
+@Cacheable
 public class Book {
 
     @Id

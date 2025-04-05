@@ -6,6 +6,7 @@ import java.time.LocalDate;
 
 
 @Entity
+@Cacheable
 public class BorrowedBook {
 
     @Id

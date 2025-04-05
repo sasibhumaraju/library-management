@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
+@Cacheable
 @DiscriminatorValue("Member")
 public class Member extends AppUser {
 

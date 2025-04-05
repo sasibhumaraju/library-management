@@ -5,6 +5,7 @@ import org.jetbrains.annotations.NotNull;
 
 
 @Entity
+@Cacheable
 @Inheritance (strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "role", discriminatorType = DiscriminatorType.STRING)
 public abstract class AppUser {
@@ -13,7 +14,7 @@ public abstract class AppUser {
     @GeneratedValue (strategy = GenerationType.UUID)
     String userId;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     String email;
 
     @Column(nullable = false)

@@ -25,32 +25,41 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         LoginService loginService = LoginService.getLoginService();
 
-        Admin a = new Admin();
-        a.setName("gopi");
-        a.setEmail("a@gmail.com");
+        List<AppUser> admins = session.createQuery("FROM AppUser", AppUser.class).list();
+//        System.out.println(admin1);
+        if (admins.isEmpty())
+        {
+            Admin a = new Admin();
+            a.setName("cop");
+            a.setEmail("k@gmail.com");
+//            a.setUserId("adminId1234");
 
-        LibraryBranch lb = new LibraryBranch();
-        lb.setAdmin(a);
-        lb.setCity("kurnool");
-        lb.setLibraryBranchName("The Great Library");
-        a.setLibraryBranches(List.of(lb));
+            LibraryBranch lb = new LibraryBranch();
+            lb.setAdmin(a);
+            lb.setCity("kurnool");
+            lb.setLibraryBranchName("The Great Library");
+//            lb.setLibraryBranchId("libraryId1234");
+            a.setLibraryBranches(List.of(lb));
 
-        Librarian librarian1 = new Librarian();
-        librarian1.setName("sasi");
-        librarian1.setEmail("sasi@gmail.com");
-        librarian1.setLibraryBranch(lb);
+            Librarian librarian1 = new Librarian();
+            librarian1.setName("sasi");
+            librarian1.setEmail("sasi@gmail.com");
+            librarian1.setLibraryBranch(lb);
+//            librarian1.setUserId("librarianId1234");
 
-        Librarian librarian2 = new Librarian();
-        librarian2.setName("laxmi");
-        librarian2.setEmail("laxmi@gmail.com");
-        librarian2.setLibraryBranch(lb);
+            Librarian librarian2 = new Librarian();
+            librarian2.setName("laxmi");
+            librarian2.setEmail("laxmi@gmail.com");
+            librarian2.setLibraryBranch(lb);
+//            librarian2.setUserId("librarianId5678");
 
-        lb.setLibrarians(List.of(librarian1, librarian2));
+            lb.setLibrarians(List.of(librarian1, librarian2));
 
-
-        Transaction t = session.beginTransaction();
-        session.persist(a);
-        t.commit();
+            Transaction t = session.beginTransaction();
+            session.persist(a); // ← FIXED: using merge instead of persist
+            t.commit();
+            System.out.println("\nSample data inserted into database!");
+        }
 
         System.out.println("Hello user! Welcome to Library");
 
